@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- DataTales Example -->
+<div class="card-body">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Add market Form:</h6>
+        </div>
+        <div class="card-header py-3">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Add market">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

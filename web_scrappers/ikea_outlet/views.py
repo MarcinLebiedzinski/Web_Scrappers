@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views import View
+from .models import Category, Market, Article
+from .forms import MarketAddForm
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -12,6 +14,53 @@ class Main(View):
     def get(self, request):
         ctx = {}
         return render(request, 'main.html', ctx)
+
+    def post(self, request):
+        pass
+
+
+class About(View):
+    def get(self, request):
+        ctx = {}
+        return render(request, 'about.html', ctx)
+
+    def post(self, request):
+        pass
+
+
+class MarketsList(View):
+    def get(self, request):
+        markets = Market.objects.all()
+        ctx = {'markets':markets}
+        return render(request, 'markets_list.html', ctx)
+
+    def post(self, request):
+        pass
+
+
+class MarketAdd(View):
+    def get(self, request):
+        form = MarketAddForm()
+        ctx = {'form':form}
+        return render(request, 'market_add.html', ctx)
+
+    def post(self, request):
+        pass
+
+
+class MarketEdit(View):
+    def get(self, request, market_id):
+        ctx = {}
+        return render(request, 'market_edit.html', ctx)
+
+    def post(self, request):
+        pass
+
+
+class MarketDelete(View):
+    def get(self, request, market_id):
+        ctx = {}
+        return render(request, 'market_delete.html', ctx)
 
     def post(self, request):
         pass
@@ -55,9 +104,9 @@ class ResultTable1(View):
             price = tag_class_price.text
 
             tag_class_status = article.find_element(By.CLASS_NAME, 'status__label')
-            status = tag_class_status.text
+            market = tag_class_status.text
 
-            my_list.append((name, description, price, status, link))
+            my_list.append((name, description, price, market, link))
 
 
         driver.quit()

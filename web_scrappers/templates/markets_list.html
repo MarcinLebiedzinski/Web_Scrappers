@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List of Ikea markets</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>webpage [link to scrap]</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for element in my_list %}
+                    <tr>
+                        <td>{{element.0}}</td>
+                        <td>{{element.1}}</td>
+                        <td><a href="{{element.2}}">link</a></td>
+                        <td><a href="{% url 'market_edit' %}">link</a></td>
+                        <td><a href="{% url 'market_delete' %}">link</a></td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-body">
+            <span class="fs-3 fw-semibold"></span>Do You want to add another market? <br>
+            <a href="{% url 'market_add' %}">
+                <button type="button" class="btn btn-outline-primary">Add</button>
+            </a>
+    </div>
+    <div class="card-body">
+        <span class="fs-3 fw-semibold"></span>Back to main page? <br>
+        <a href="{% url 'main' %}">
+            <button type="button" class="btn btn-outline-primary">Main</button>
+        </a>
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -16,12 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from ikea_outlet.views import Main
+from ikea_outlet.views import Main, About
+from ikea_outlet.views import MarketsList, MarketAdd, MarketEdit, MarketDelete
 from ikea_outlet.views import ResultTable1
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('web_scrappers/main/', Main.as_view(), name='main'),
+    path('web_scrappers/about/', About.as_view(), name='about'),
+
+
+    path('web_scrappers/markets_list/', MarketsList.as_view(), name='markets_list'),
+    path('web_scrappers/market_add/', MarketAdd.as_view(), name='market_add'),
+    path('web_scrappers/market_edit/<int:market_id>', MarketEdit.as_view(), name='market_edit'),
+    path('web_scrappers/market_delete/<int:market_id>', MarketDelete.as_view(), name='market_delete'),
+
     path('web_scrappers/ikea_results/', ResultTable1.as_view(), name='result_table_1'),
 
 ]

@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Web Scrappers</title>
+    <title>Web Scrapers</title>
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -37,7 +37,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-building"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Web Scrappers </div>
+                <div class="sidebar-brand-text mx-3">Web Scrapers </div>
             </a>
 
             <!-- Divider -->
@@ -51,7 +51,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'main' %}">
+                <a class="nav-link" href="{% url 'about' %}">
                     <i class="fas fa-info-circle fa-cog"></i>
                     <span>About</span>
                 </a>
@@ -63,61 +63,28 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Features
-            </div>
-
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'main' %}">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>Websites</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'main' %}">
-                    <i class="fas fa-fw fa-eye"></i>
-                    <span>Scope</span>
-                </a>
-            </li>
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Results
+                Ikea outlet
             </div>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
+                <a class="nav-link" href="{% url 'markets_list' %}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Markets</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Start</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'result_table_1' %}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Table 1</span></a>
+                    <span>Results</span></a>
             </li>
 
-
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Type A:</h6>
-                        <a class="collapse-item" href="#">Graph 1</a>
-                        <a class="collapse-item" href="#">Graph 2</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Type B:</h6>
-                        <a class="collapse-item" href="#">Graph 3</a>
-                        <a class="collapse-item" href="#">Graph 4</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -149,7 +116,7 @@
 
                     <!-- Content Row -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
-                        <h1 class="h3 mb-0 text-gray-800">WEB SCRAPPERS</h1>
+                        <h1 class="h3 mb-0 text-gray-800">WEB SCRAPERS</h1>
                     </div>
 
                         {% block content %} {% endblock %}
