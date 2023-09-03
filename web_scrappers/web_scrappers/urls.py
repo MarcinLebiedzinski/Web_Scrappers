@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.urls import path
 
 from ikea_outlet.views import Main, About
+from ikea_outlet.views import InvalidData
 from ikea_outlet.views import MarketsList, MarketAdd, MarketEdit, MarketDelete
-from ikea_outlet.views import ResultTable1
+from ikea_outlet.views import CategoriesList, CategoryAdd, CategoryEdit, CategoryDelete
+from ikea_outlet.views import StartScrap
+from ikea_outlet.views import ArticlesAll
 
 
 urlpatterns = [
@@ -26,12 +29,20 @@ urlpatterns = [
     path('web_scrappers/main/', Main.as_view(), name='main'),
     path('web_scrappers/about/', About.as_view(), name='about'),
 
+    path('web_scrappers/invaliddata/', InvalidData.as_view(), name='invalid_data'),
 
     path('web_scrappers/markets_list/', MarketsList.as_view(), name='markets_list'),
     path('web_scrappers/market_add/', MarketAdd.as_view(), name='market_add'),
     path('web_scrappers/market_edit/<int:market_id>', MarketEdit.as_view(), name='market_edit'),
     path('web_scrappers/market_delete/<int:market_id>', MarketDelete.as_view(), name='market_delete'),
 
-    path('web_scrappers/ikea_results/', ResultTable1.as_view(), name='result_table_1'),
+    path('web_scrappers/categories_list/', CategoriesList.as_view(), name='categories_list'),
+    path('web_scrappers/category_add/', CategoryAdd.as_view(), name='category_add'),
+    path('web_scrappers/category_edit/<int:category_id>', CategoryEdit.as_view(), name='category_edit'),
+    path('web_scrappers/category_delete/<int:category_id>', CategoryDelete.as_view(), name='category_delete'),
+
+    path('web_scrappers/start_scrap/', StartScrap.as_view(), name='start_scrap'),
+
+    path('web_scrappers/results_articles_all/', ArticlesAll.as_view(), name='results_articles_all'),
 
 ]

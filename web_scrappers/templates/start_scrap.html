@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Start Scrapping</h6>
+
+
+    <div class="py-2 text-lg-start py-3">
+        <span class="fs-3 fw-semibold"></span>Are You sure You want to start scraping?<br>
+        <span class="fs-3 fw-semibold"></span>All data from the database will be deleted
+                    and the scrapping results will replace the current ones.<br>
+    </div>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.choice.as_hidden }}
+        <input class="btn btn-outline-primary" type="submit" value="Start">
+    </form>
+
+    <div class="py-4 text-lg-start">
+        <span class="fs-3 fw-semibold"></span>Back<br>
+        <a href="{% url 'main' %}">
+            <button type="button" class="btn btn-outline-primary">Back</button>
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

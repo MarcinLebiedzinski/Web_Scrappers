@@ -7,7 +7,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List of Ikea markets</h6>
+        <h6 class="m-0 font-weight-bold text-primary">List of categories</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -15,21 +15,19 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Address</th>
-                        <th>webpage [link to scrap]</th>
+                        <th>Symbol</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                {% for market in markets %}
+                {% for category in categories %}
                     <tr>
-                        <td>{{market.name}}</td>
-                        <td>{{market.address}}</td>
-                        <td><a href="{{market.webpage}}">{{market.webpage}}</a></td>
-                        <td><a href="{% url 'market_edit' market.id %}">Edit</a></td>
-                        <td><a href="{% url 'market_delete' market.id %}">Delete</a></td>
+                        <td>{{category.name}}</td>
+                        <td>{{category.symbol}}</td>
+                        <td><a href="{% url 'category_edit' category.id %}">Edit</a></td>
+                        <td><a href="{% url 'category_delete' category.id %}">Delete</a></td>
                     </tr>
                 {% endfor %}
 
@@ -39,8 +37,8 @@
     </div>
     <div class="card-body">
         <div>
-            <span class="fs-3 fw-semibold"></span>Do You want to add another market? <br>
-            <a href="{% url 'market_add' %}">
+            <span class="fs-3 fw-semibold"></span>Do You want to add another category? <br>
+            <a href="{% url 'category_add' %}">
                 <button type="button" class="btn btn-outline-primary">Add</button>
             </a>
             </div>
