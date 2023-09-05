@@ -19,7 +19,6 @@
                         <th>Price [PLN]</th>
                         <th>Market</th>
                         <th>Link</th>
-                        <th>Category</th>
 
                     </tr>
                 </thead>
@@ -27,12 +26,11 @@
                 <tbody>
                 {% for article in articles %}
                     <tr>
-                        <td>{{article.0}}</td>
-                        <td>{{article.1}}</td>
-                        <td>{{article.2}}</td>
-                        <td>{{article.3}}</td>
-                        <td><a href="{{article.4}}">link</a></td>
-                        <td>{{article.5}}</td>
+                        <td>{{article.name}}</td>
+                        <td>{{article.description}}</td>
+                        <td>{{article.price}}</td>
+                        <td>{{article.market}}</td>
+                        <td><a href="{{article.link}}">link</a></td>
                     </tr>
                 {% endfor %}
 
@@ -44,7 +42,9 @@
         <h6 class="m-0 font-weight-bold text-primary">Other Data</h6>
     <div class="card-body">
         </div>
-        <p>Amount of products: {{amount_of_products}}</p>
+        <p>List of categories: {{categories_id}}</p>
+        <p>List of markets: {{markets_id}}</p>
+
         </div>
     </div>
 </div>

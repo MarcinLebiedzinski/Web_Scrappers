@@ -7,45 +7,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data table - {{amount_of_products}} products were found</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price [PLN]</th>
-                        <th>Market</th>
-                        <th>Link</th>
-                        <th>Category</th>
-
-                    </tr>
-                </thead>
-
-                <tbody>
-                {% for element in my_list %}
-                    <tr>
-                        <td>{{element.0}}</td>
-                        <td>{{element.1}}</td>
-                        <td>{{element.2}}</td>
-                        <td>{{element.3}}</td>
-                        <td><a href="{{element.4}}">link</a></td>
-                        <td>{{element.5}}</td>
-                    </tr>
-                {% endfor %}
-
-                </tbody>
-            </table>
-        </div>
-
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Other Data</h6>
-    <div class="card-body">
-        </div>
-        <p>Amount of products: {{amount_of_products}}</p>
-        </div>
+        <h6 class="m-0 font-weight-bold text-primary">Result - {{amount_of_products}} products were found and saved to database</h6>
     </div>
 </div>
 

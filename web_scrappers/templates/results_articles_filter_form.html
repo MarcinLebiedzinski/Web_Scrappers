@@ -8,15 +8,15 @@
 <div class="card-body">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add Category Form:</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Filtering:</h6>
         </div>
         <div class="card-header py-3">
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button class="btn btn-outline-primary my-2" input type="submit" value="Add" >Add</button>
+                <button class="btn btn-outline-primary my-2" input type="submit" value="Add" >Results</button>
             </form>
-            <a href="{% url 'categories_list' %}">
+            <a href="{% url 'main' %}">
                 <button type="button" class="btn btn-outline-primary my-2">Back</button>
             </a>
         </div>
