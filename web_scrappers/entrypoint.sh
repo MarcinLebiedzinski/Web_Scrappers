@@ -1,7 +1,5 @@
-#!/bin/ash
-
+#!/bin/bash
 echo "Apply database migrations"
-python manage.py migrate
-python manage.py makemigrations
+python3 manage.py migrate
 
-exec"$@"
+exec "$@"

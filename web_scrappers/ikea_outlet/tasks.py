@@ -2,6 +2,8 @@ from django.conf import settings
 from .celery import app
 
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -15,12 +17,24 @@ from .models import Market, Article
 from celery.schedules import crontab
 
 
+
 @app.task
 def scrap():
+   
+    # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+
     # options = Options()
-    # options.binary_location = "/home/marcin/workspace/portfolio/chromedriver/chromedriver.exe"
-    # driver = webdriver.Chrome(options=options)
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    # options.add_argument('--no-sandbox')
+    # options.add_argument('--window-size=1920,1080')
+    # options.add_argument('--headless')
+    # options.add_argument('--disable-gpu')
+
+    # service = webdriver.ChromeService(executable_path='/usr/local/bin/chromedriver-linux64/chromedriver')
+
+
+    options = Options()
+    options.add_argument('---shm-size="2g"')
+    driver = webdriver.Remote(command_executor='http://selenium:4444', options=options)
 
     markets = Market.objects.all()
     my_list = []
@@ -56,7 +70,7 @@ def scrap():
                 description = tag_class_description.text
 
                 tag_class_price = article.find_element(By.CLASS_NAME, 'price__integer')
-                price = tag_class_price.text
+                price = int(tag_class_price.text)
 
                 my_list.append((name, description, price, market, link_to_product))
 
