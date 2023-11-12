@@ -24,6 +24,7 @@ services:
     container_name: celery
     build:
       context: ./web_scrappers
+    command: celery --app=web_scrappers worker -l INFO
     volumes:
       - ./web_scrappers:/usr/src/app/
     depends_on:

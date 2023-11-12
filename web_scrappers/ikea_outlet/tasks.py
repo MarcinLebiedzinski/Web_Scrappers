@@ -1,12 +1,8 @@
-from django.conf import settings
-from .celery import app
+import os
+from celery import shared_task
+
 
 from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
@@ -14,24 +10,12 @@ import time
 
 from .models import Market, Article
 
-from celery.schedules import crontab
+@shared_task
+def get_all_articles():
+    return Article.objects.all()
 
-
-
-@app.task
+@shared_task
 def scrap():
-   
-    # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-
-    # options = Options()
-    # options.add_argument('--no-sandbox')
-    # options.add_argument('--window-size=1920,1080')
-    # options.add_argument('--headless')
-    # options.add_argument('--disable-gpu')
-
-    # service = webdriver.ChromeService(executable_path='/usr/local/bin/chromedriver-linux64/chromedriver')
-
-
     options = Options()
     options.add_argument('---shm-size="2g"')
     driver = webdriver.Remote(command_executor='http://selenium:4444', options=options)
@@ -61,10 +45,8 @@ def scrap():
         for article in articles:
             try:
                 name = article.get_attribute("aria-label")
-                # store = link.split("?")[1]
                 tag_link = article.find_element(By.TAG_NAME, 'a')
                 link_to_product = tag_link.get_attribute('href')
-                # link = 'https://www.ikea.com/pl/pl/customer-service/services/okazje-na-okraglo-pub63b48c50' + tag_link.get_attribute('href') + "?" +
 
                 tag_class_description = article.find_element(By.CLASS_NAME, 'price-module__description')
                 description = tag_class_description.text

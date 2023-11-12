@@ -1,9 +1,6 @@
 from pathlib import Path
 import os
 
-from celery.schedules import crontab
-from datetime import datetime
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
@@ -121,4 +118,7 @@ CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 # set the celery result backend
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 
-
+# set the celery serialization
+CELERY_TASK_SERIALIZER = 'pickle'
+CELERY_ACCEPT_CONTENT = ['json', 'pickle']
+os.environ.setdefault ('C_FORCE_ROOT', 'true')

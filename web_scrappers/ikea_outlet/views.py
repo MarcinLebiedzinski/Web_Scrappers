@@ -6,12 +6,7 @@ from .forms import AprovingForm, APROVING_CHOICES
 from .forms import ArticlesFilterForm
 
 from .tasks import scrap
-
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver import ActionChains
-import time
+from .tasks import get_all_articles
 
 
 class Main(View):
@@ -128,7 +123,7 @@ class StartScrap(View):
 
 class ArticlesAll(View):
     def get(self, request):
-        articles = Article.objects.all()
+        articles = get_all_articles()
         ctx = {'articles': articles, 'amount_of_products': len(articles)}
         return render(request, "results_articles_all.html", ctx)
 
