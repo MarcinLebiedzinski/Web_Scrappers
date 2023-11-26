@@ -6,6 +6,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'web_scrappers.settings')
 
 app = Celery('web_scrappers')
 app.config_from_object('django.conf:settings', namespace='CELERY')
+app.conf.task_routes = {'ikea_outlet.tasks.get_all_articles': {'queue':'queue1'}, 
+                        'ikea_outlet.tasks.scrap': {'queue':'queue1'}}
 
 app.conf.task_serializer = 'pickle'
 app.conf.result_serializer = 'pickle'
