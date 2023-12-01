@@ -23,7 +23,7 @@ services:
   celery:
     container_name: celery
     build:
-      context: ./web_scrappers
+      context: ./celeryworker
     command: celery --app=web_scrappers worker -l INFO -Q queue1 -E -B
     volumes:
       - ./web_scrappers:/usr/src/app/
@@ -32,10 +32,10 @@ services:
       - django
   
   selenium:
-     image: selenium/standalone-chrome
-     shm_size: '2gb'
-     ports:
-       - 4444:4444
-     depends_on:
-       - redis
+    image: selenium/standalone-chrome
+    shm_size: '2gb'
+    ports:
+      - 4444:4444
+    depends_on:
+      - redis
     

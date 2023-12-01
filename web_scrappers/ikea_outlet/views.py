@@ -6,7 +6,7 @@ from .forms import AprovingForm, APROVING_CHOICES
 from .forms import ArticlesFilterForm
 
 from .tasks import scrap
-from .tasks import get_all_articles
+
 
 
 class Main(View):
@@ -123,7 +123,7 @@ class StartScrap(View):
 
 class ArticlesAll(View):
     def get(self, request):
-        articles = get_all_articles()
+        articles = Article.objects.all()
         ctx = {'articles': articles, 'amount_of_products': len(articles)}
         return render(request, "results_articles_all.html", ctx)
 
