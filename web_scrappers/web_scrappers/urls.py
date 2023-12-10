@@ -1,18 +1,3 @@
-"""web_scrappers URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 
@@ -21,6 +6,9 @@ from ikea_outlet.views import InvalidData
 from ikea_outlet.views import MarketsList, MarketAdd, MarketEdit, MarketDelete
 from ikea_outlet.views import StartScrap
 from ikea_outlet.views import ArticlesAll, ArticlesFilter
+from ikea_outlet.views import UsersList, UserAdd, UserEdit, UserDelete
+from ikea_outlet.views import SearchList, SearchAdd, SearchEdit, SearchDelete
+
 
 
 urlpatterns = [
@@ -40,4 +28,14 @@ urlpatterns = [
     path('web_scrappers/results_articles_all/', ArticlesAll.as_view(), name='results_articles_all'),
     path('web_scrappers/results_articles_filter/', ArticlesFilter.as_view(), name='results_articles_filter'),
 
+    path('web_scrappers/users_list/', UsersList.as_view(), name='users_list'),
+    path('web_scrappers/user_add/', UserAdd.as_view(), name='user_add'),
+    path('web_scrappers/user_edit/<int:user_id>', UserEdit.as_view(), name='user_edit'),
+    path('web_scrappers/user_delete/<int:user_id>', UserDelete.as_view(), name='user_delete'),
+
+    path('web_scrappers/search_list/', SearchList.as_view(), name='search_list'),
+    path('web_scrappers/search_add/', SearchAdd.as_view(), name='search_add'),
+    path('web_scrappers/search_edit/<int:search_id>', SearchEdit.as_view(), name='search_edit'),
+    path('web_scrappers/search_delete/<int:search_id>', SearchDelete.as_view(), name='search_delete'),
 ]
+

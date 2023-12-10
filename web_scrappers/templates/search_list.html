@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Search List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Email - for notifications</th>
+                        <th>Market</th>
+                        <th>Search Phrase</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for search in searches %}
+                    <tr>
+                        <td>{{search.email}}</td>
+                        <td>{{search.market}}</td>
+                        <td>{{search.text}}</td>
+                        <td><a href="{% url 'search_edit' search.id %}">Edit</a></td>
+                        <td><a href="{% url 'search_delete' search.id %}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-body">
+        <div>
+            <span class="fs-3 fw-semibold"></span>Do You want to add user? <br>
+            <a href="{% url 'search_add' %}">
+                <button type="button" class="btn btn-outline-primary">Add</button>
+            </a>
+            </div>
+        <div class="my-2">
+            <span class="fs-3 fw-semibold"></span>Back to main page? <br>
+            <a href="{% url 'main' %}">
+                <button type="button" class="btn btn-outline-primary">Main</button>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

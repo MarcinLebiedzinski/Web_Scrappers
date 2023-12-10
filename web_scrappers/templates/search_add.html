@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- DataTales Example -->
+<div class="card-body">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Add User Form:</h6>
+        </div>
+        <div class="card-header py-3">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-outline-primary my-2" input type="submit" value="Add" >Add</button>
+            </form>
+            <a href="{% url 'users_list' %}">
+                <button type="button" class="btn btn-outline-primary my-2">Back</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,8 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-
 class Market(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=128)
@@ -22,4 +19,15 @@ class Article(models.Model):
     def __str__(self):
         return self.name
 
+class Person(models.Model):
+    username = models.CharField(max_length=64)
+    email = models.EmailField()
 
+    def __str__(self):
+        return self.email
+
+class Search(models.Model):
+    email = models.ForeignKey(Person, on_delete=models.CASCADE)
+    market = models.ForeignKey(Market, on_delete=models.CASCADE)
+    text = models.CharField(max_length=64)
+ 

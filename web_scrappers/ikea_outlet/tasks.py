@@ -1,10 +1,10 @@
-from .models import Market, Article
+from .models import Market, Article, Search
 from web_scrappers.celery import app
 from celery import shared_task
 from datetime import timedelta
 
-from utils.mail_functions import send_mail
-from utils.scraping_functions import scrap
+from utils.functions import send_mail
+from utils.functions import scrap, clear_db, save_result_to_db, search_phrase_in_results
 
 app.conf.beat_schedule = {
     'task1':{
@@ -12,11 +12,7 @@ app.conf.beat_schedule = {
         'schedule': timedelta(seconds=60),
     },
     'task2':{
-        'task': 'ikea_outlet.tasks.scrap_beat',
-        'schedule': timedelta(seconds=300),
-    },
-    'task3':{
-        'task': 'ikea_outlet.tasks.send_mail_beat',
+        'task': 'ikea_outlet.tasks.alert_beat',
         'schedule': timedelta(seconds=600),
     },
 }
@@ -27,23 +23,18 @@ def test_beat():
     return
 
 @app.task(queue="queue1")
-def scrap_beat():
-    my_list = scrap()
-    return len(my_list)
-
-
-@app.task(queue="queue1")
-def send_mail_beat():
-    host = 'smtp.yandex.com'
-    port = 465
-
-    login = 'ikeabotalert'
-    app_password = 'trudpsfzlcyghoes' # password generated in Yandex
-
-    from_addr = 'ikeabotalert@yandex.com'
-    to_addrs = 'lebiedzinski.marcin@gmail.com'
-    message = """Subject: Your bot Ikea alert\n
-    It's just test mail. It will contain sales in ikea outlet market in the nearest future
-    """
-
-    return send_mail(host, port, login, app_password, from_addr, to_addrs, message)
+def alert_beat():
+    result_list = scrap()
+    clear_db()
+    save_result_to_db(result_list)
+    search_list = Search.objects.all()
+    for search in search_list:
+        message_body = "Hello, This is ikea outlet alert.\n Below list of products that you interested in.\n"
+        list_of_wanted_products = search_phrase_in_results(search.text, search.market)
+        if list_of_wanted_products:
+            subject = "Daily Ikea alert"    
+            for element in list_of_wanted_products:
+                new_message = f"{element.name} - {element.description} - {element.link}\n" 
+                message_body += new_message
+            send_mail(search.email.email, subject, message_body)
+    return

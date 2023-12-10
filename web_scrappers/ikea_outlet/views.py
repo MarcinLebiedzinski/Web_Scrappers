@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views import View
-from .models import Market, Article
-from .forms import MarketAddForm
+from .models import Market, Article, Person, Search
+from .forms import MarketAddForm, UserAddForm, SearchAddForm
 from .forms import AprovingForm, APROVING_CHOICES
 from .forms import ArticlesFilterForm
 
-from .tasks import scrap
+from utils.functions import scrap
 
 
 
@@ -105,6 +105,149 @@ class MarketEdit(View):
             market.webpage = webpage
             market.save()
             return redirect('markets_list')
+        else:
+            HttpResponseRedirect('invalid_data')
+
+
+class UsersList(View):
+    def get(self, request):
+        users = Person.objects.all()
+        ctx = {'users': users}
+        return render(request, 'users_list.html', ctx)
+
+    def post(self, request):
+        pass
+
+
+class UserAdd(View):
+    def get(self, request):
+        form = UserAddForm()
+        ctx = {'form': form}
+        return render(request, 'user_add.html', ctx)
+
+    def post(self, request):
+        form = UserAddForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            
+            Person.objects.create(username=username,
+                                  email=email)
+            return redirect('users_list')
+        else:
+            HttpResponseRedirect('invalid_data')
+
+
+class UserDelete(View):
+    def get(self, request, user_id):
+        form = AprovingForm()
+        ctx = {'form': form}
+        return render(request, 'user_delete.html', ctx)
+
+    def post(self, request, user_id):
+        form = AprovingForm(request.POST)
+        if form.is_valid():
+            choice_dict = dict(APROVING_CHOICES)
+            choice = choice_dict[int(form.cleaned_data['choice'])]
+            if choice == 'yes':
+                user = Person.objects.get(id=user_id)
+                user.delete()
+            return redirect('users_list')
+        else:
+            HttpResponseRedirect('invalid_data')
+
+
+class UserEdit(View):
+    def get(self, request, user_id):
+        user = Person.objects.get(id=user_id)
+        form = UserAddForm()
+        ctx = {'form': form, 'user': user}
+        return render(request, 'user_edit.html', ctx)
+
+    def post(self, request, user_id):
+        form = UserAddForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            user = Person.objects.get(id=user_id)
+            user.name = username
+            user.email = email
+            user.save()
+            return redirect('users_list')
+        else:
+            HttpResponseRedirect('invalid_data')
+
+
+class SearchList(View):
+    def get(self, request):
+        searches = Search.objects.all()
+        ctx = {'searches': searches}
+        return render(request, 'search_list.html', ctx)
+
+    def post(self, request):
+        pass
+
+
+class SearchAdd(View):
+    def get(self, request):
+        form = SearchAddForm()
+        ctx = {'form': form}
+        return render(request, 'search_add.html', ctx)
+
+    def post(self, request):
+        form = SearchAddForm(request.POST)
+
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            market = form.cleaned_data['market']
+            text = form.cleaned_data['text']
+            Search.objects.create(email=email,
+                                  market=market,
+                                  text=text)
+            return redirect('search_list')
+        else:
+            HttpResponseRedirect('invalid_data')
+
+
+class SearchDelete(View):
+    def get(self, request, search_id):
+        form = AprovingForm()
+        ctx = {'form': form}
+        return render(request, 'search_delete.html', ctx)
+
+    def post(self, request, search_id):
+        form = AprovingForm(request.POST)
+        if form.is_valid():
+            choice_dict = dict(APROVING_CHOICES)
+            choice = choice_dict[int(form.cleaned_data['choice'])]
+            if choice == 'yes':
+                user = Search.objects.get(id=search_id)
+                user.delete()
+            return redirect('search_list')
+        else:
+            HttpResponseRedirect('invalid_data')
+
+
+class SearchEdit(View):
+    def get(self, request, search_id):
+        search = Search.objects.get(id=search_id)
+        form = SearchAddForm()
+        ctx = {'form': form, 'search': search}
+        return render(request, 'search_edit.html', ctx)
+
+    def post(self, request, search_id):
+        form = SearchAddForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            market = form.cleaned_data['market']
+            text = form.cleaned_data['text']
+            search = Search.objects.get(id=search_id)
+            search.email = email
+            search.market = market
+            search.text = text
+            search.save()
+            return redirect('search_list')
         else:
             HttpResponseRedirect('invalid_data')
 
