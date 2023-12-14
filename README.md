@@ -13,3 +13,4 @@ The application is composed of the following elements (containers):
 To run application:
 - clone https://github.com/MarcinLebiedzinski/Web_Scrappers
 - use the command “docker compose up” in the root directory of the repository
+- open http://localhost:8001/web_scrappers/main/ in Your browser
