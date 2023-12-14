@@ -13,7 +13,7 @@ app.conf.beat_schedule = {
     },
     'task2':{
         'task': 'ikea_outlet.tasks.alert_beat',
-        'schedule': timedelta(seconds=600),
+        'schedule': timedelta(seconds=21600),
     },
 }
 
